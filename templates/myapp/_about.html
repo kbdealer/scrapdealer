@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+
+<!-- Hero -->
+<div style="background:linear-gradient(135deg,#2c3e50,#34495e); color:#fff; padding:48px 24px;
+     text-align:center; border-radius:12px; margin-bottom:32px; position:relative; overflow:hidden;">
+  <span style="display:inline-block; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);
+        border-radius:20px; padding:4px 14px; font-size:12px; letter-spacing:1px; margin-bottom:16px;">
+    swabi kpk, PK
+  </span>
+  <h1 style="font-size:2.4em; font-weight:700; letter-spacing:3px; margin:0 0 12px;">
+    SADDAM SCRAP DEALER
+  </h1>
+  <p style="font-size:1.1em; max-width:600px; margin:0 auto; opacity:0.85; line-height:1.7;">
+    Turning scrap into value since 2022 — trusted, transparent, and customer-focused.
+  </p>
+</div>
+
+<!-- About Text -->
+<section class="card shadow-sm p-4 mb-4">
+  <p>Since <strong>2022</strong>, <strong>Saddam Scrap Dealer</strong> has been dedicated to providing
+  the best service in the scrap industry. We deal with <strong>all types of scrap items</strong>
+  and ensure our customers receive the <strong>best prices</strong> and highest quality service.</p>
+
+  <p>Our mission is simple: to make scrap trading <strong>easy, profitable, and reliable</strong>.
+  With a focus on honesty, transparency, and customer satisfaction, we have built strong
+  relationships with individuals and businesses alike.</p>
+
+  <p class="mb-0">Whether you need to sell scrap or require delivery services, Saddam Scrap Dealer
+  is here to serve you with professionalism and care — your trusted partner in this journey.</p>
+</section>
+
+<!-- Stats Row -->
+<div class="row text-center g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm p-3">
+      <div style="font-size:1.8rem; font-weight:700; color:#2c3e50;">3+</div>
+      <div class="text-muted small">Years Active</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm p-3">
+      <div style="font-size:1.8rem; font-weight:700; color:#2c3e50;">500+</div>
+      <div class="text-muted small">Customers Served</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm p-3">
+      <div style="font-size:1.8rem; font-weight:700; color:#2c3e50;">5</div>
+      <div class="text-muted small">Scrap Types Handled</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm p-3">
+      <div style="font-size:1.8rem; font-weight:700; color:#2c3e50;">100%</div>
+      <div class="text-muted small">Transparent Pricing</div>
+    </div>
+  </div>
+</div>
+
+<!-- Vision / Mission / Goal -->
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm p-4 text-center h-100">
+      <div style="font-size:2rem; margin-bottom:10px;">👁️</div>
+      <h5 style="color:#2c3e50;">Vision</h5>
+      <p class="text-muted mb-0">A circular economy where used products are transformed into new ones,
+      minimizing resource exploitation and maximizing recycling.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm p-4 text-center h-100">
+      <div style="font-size:2rem; margin-bottom:10px;">🌍</div>
+      <h5 style="color:#2c3e50;">Mission</h5>
+      <p class="text-muted mb-0">Build a world where nothing is wasted, empowering communities
+      globally to recycle and live sustainably.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm p-4 text-center h-100">
+      <div style="font-size:2rem; margin-bottom:10px;">🎯</div>
+      <h5 style="color:#2c3e50;">Goal</h5>
+      <p class="text-muted mb-0">Make recycling achievable and accessible for everyone —
+      from large institutions to individual households.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div style="background:#2c3e50; border-radius:12px; padding:32px; text-align:center; color:#fff;">
+  <h4 class="mb-2">Ready to sell your scrap?</h4>
+  <p style="opacity:0.85; margin-bottom:20px;">We make it simple — get a price quote or book a pickup today.</p>
+  <a href="{% url 'get_quote' %}" class="btn btn-light me-2">Get a Free Quote</a>
+  <a href="{% url 'book_pickup' %}" class="btn btn-outline-light">Book a Pickup</a>
+</div>
+
+{% endblock %}

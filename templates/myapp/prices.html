@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Scrap Prices Today{% endblock %}
+{% block content %}
+
+<h2 class="mb-1">Today's Scrap Prices</h2>
+<p class="text-muted mb-4">Prices updated regularly. Call us to confirm before bringing large loads.</p>
+
+<div class="row g-3">
+  {% for p in prices %}
+  <div class="col-6 col-md-4 col-lg-3">
+    <div class="card h-100 text-center p-3 shadow-sm">
+      <div style="font-size:2rem; margin-bottom:8px">
+        {% if p.scrap_type == 'metal' %}🔩
+        {% elif p.scrap_type == 'paper' %}📄
+        {% elif p.scrap_type == 'electronics' %}💻
+        {% elif p.scrap_type == 'plastic' %}🧴
+        {% else %}♻{% endif %}
+      </div>
+      <div class="fw-bold mb-1">{{ p.material }}</div>
+      <div class="badge bg-success fs-6 mb-2">{{ p.price_per_kg }} {{ p.unit }}</div>
+      <div class="text-muted small">{{ p.get_scrap_type_display }}</div>
+    </div>
+  </div>
+  {% empty %}
+  <div class="col-12">
+    <div class="alert alert-info">
+      Prices will be shown here soon. Call us for today's rates:
+      <strong><a href="tel:+923239106011">+92-3239106011</a></strong>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="mt-4 p-4 bg-light rounded text-center">
+  <h5>Not sure about the weight?</h5>
+  <p class="mb-3">Use our free quote calculator to get an instant estimate.</p>
+  <a href="{% url 'get_quote' %}" class="btn btn-scrap btn-lg">Get My Quote</a>
+</div>
+
+{% endblock %}

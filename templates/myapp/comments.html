@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Comments{% endblock %}
+{% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+<!-- Comment form -->
+{% if user.is_authenticated %}
+<div class="card shadow-sm p-4 mb-4">
+  <h2 class="h4 mb-3">Leave a Comment</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label fw-bold">Your Comment</label>
+      {{ form.content }}   {# this renders the textarea from CommentForm #}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Comment</button>
+  </form>
+</div>
+{% else %}
+<div class="alert alert-info">
+  <a href="{% url 'login' %}">Log in</a> to leave a comment.
+</div>
+{% endif %}
+
+<!-- Comments list -->
+<div class="card shadow-sm p-4 mb-4">
+  <h2 class="h4 mb-3">Comments ({{ comments.count }})</h2>
+  {% for comment in comments %}
+  <div class="border-bottom pb-3 mb-3">
+    <div class="d-flex justify-content-between">
+      <strong>{{ comment.user.username }}</strong>
+      <small class="text-muted">{{ comment.created_at|timesince }} ago</small>
+    </div>
+    <p class="mb-0 mt-1">{{ comment.content }}</p>
+  </div>
+  {% empty %}
+  <p class="text-muted">No comments yet. Be the first!</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
