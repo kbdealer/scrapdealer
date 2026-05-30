@@ -34,6 +34,7 @@ LOGIN_URL = 'login'
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,8 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    
+   
 ]
 
+JAZZMIN_SETTINGS = {
+    "site_title": "My Admin",
+    "site_header": "My Site",
+    "site_brand": "My Site",
+    "welcome_sign": "Welcome to the admin panel",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+}
 
 
 MIDDLEWARE = [
