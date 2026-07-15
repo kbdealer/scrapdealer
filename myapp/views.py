@@ -1,5 +1,6 @@
 import json
 
+from django.core.paginator import Paginator
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -14,15 +15,21 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     comments = Comment.objects.select_related('user').all()
     form = CommentForm()
-    prices = ScrapPrice.objects.all()          # real queryset
     scrap_types = SCRAP_TYPES                  # import from models.py
+
+    all_prices = ScrapPrice.objects.all()
+    paginator = Paginator(all_prices, 3)        # 3 items per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     return render(request, 'myapp/home.html', {
         'comments': comments,
         'form': form,
-        'prices': prices,
+        'page_obj': page_obj,
         'scrap_types': scrap_types,
-    })
+    })  
+
+    
 def about(request):
     return render(request,"myapp/_about.html")
 
@@ -60,10 +67,15 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
-
 def prices(request):
-    prices = ScrapPrice.objects.all()
-    return render(request, 'myapp/prices.html', {'prices': prices})
+    all_prices = ScrapPrice.objects.all()
+    paginator = Paginator(all_prices, 3)          # 3 items per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+ 
+    return render(request, 'myapp/prices.html', {
+        'page_obj': page_obj,
+    })
 
 def get_quote(request):
     quote_result = None

@@ -5,21 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Scrap Business{% endblock %}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
 
-    /* ── Navbar with scrap photo background ── */
+    :root {
+      --rust: #C1571E;
+      --rust-dark: #9C4416;
+      --rust-light: #E8763B;
+      --graphite: #1E2124;
+      --graphite-soft: #2B2F33;
+      --steel: #55606B;
+      --moss: #5C8A55;
+      --paper: #F7F3ED;
+      --paper-dim: #EFE9DF;
+    }
+
+    body {
+      background: var(--paper);
+      font-family: 'Inter', sans-serif;
+      color: #2b2b28;
+    }
+
+    /* ── Navbar with scrap-yard photo background ── */
     .navbar {
       background:
-        linear-gradient(90deg,
-          rgba(20, 50, 20, 0.92) 0%,
-          rgba(46, 125, 50, 0.82) 55%,
-          rgba(56, 142, 60, 0.88) 100%),
+        linear-gradient(100deg,
+          rgba(25, 27, 29, 0.94) 0%,
+          rgba(30, 33, 36, 0.82) 45%,
+          rgba(156, 68, 22, 0.78) 100%),
         url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80&fit=crop')
         center / cover no-repeat !important;
       padding: 0;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
       position: relative;
       overflow: hidden;
+      border-bottom: 3px solid var(--rust);
     }
 
     /* Soft vignette on edges */
@@ -27,34 +48,35 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.25) 100%);
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%);
       pointer-events: none;
     }
 
     /* Brand */
     .navbar-brand {
+      font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: #fff !important;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       padding: 12px 0;
       text-shadow: 0 1px 4px rgba(0,0,0,0.4);
     }
     .navbar-brand-icon {
-      width: 36px; height: 36px;
-      background: rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(4px);
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--rust-light), var(--rust-dark));
       border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 9px;
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       font-size: 18px;
-      transition: background 0.2s, transform 0.2s;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(193, 87, 30, 0.5);
+      transition: transform 0.25s ease;
     }
     .navbar-brand:hover .navbar-brand-icon {
-      background: rgba(255, 255, 255, 0.28);
-      transform: rotate(15deg);
+      transform: rotate(-18deg) scale(1.05);
     }
 
     /* Nav links */
@@ -66,33 +88,36 @@
       transition: background 0.18s, color 0.18s, transform 0.15s;
       margin: 0 1px;
       text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .navbar-nav .nav-link:hover {
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.14);
       color: #fff !important;
       transform: translateY(-1px);
     }
     .navbar-nav .nav-link.active {
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(193, 87, 30, 0.35);
       color: #fff !important;
       font-weight: 600;
     }
 
     /* CTA button */
     .navbar-nav .nav-link.nav-cta {
-      background: #fff;
-      color: #1b5e20 !important;
+      background: linear-gradient(135deg, var(--rust-light), var(--rust));
+      color: #fff !important;
       font-weight: 700;
       margin-left: 8px;
       padding: 7px 18px !important;
       text-shadow: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 10px rgba(193, 87, 30, 0.4);
     }
     .navbar-nav .nav-link.nav-cta:hover {
-      background: #e8f5e9;
-      color: #1a3a1a !important;
+      background: linear-gradient(135deg, var(--rust), var(--rust-dark));
+      color: #fff !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 16px rgba(193, 87, 30, 0.55);
     }
 
     /* Mobile toggler */
@@ -106,8 +131,8 @@
 
     /* Status bar above navbar */
     .navbar-statusbar {
-      background: rgba(15, 35, 15, 0.95);
-      color: rgba(255,255,255,0.65);
+      background: var(--graphite);
+      color: rgba(255,255,255,0.68);
       font-size: 11.5px;
       padding: 5px 0;
       text-align: center;
@@ -118,7 +143,7 @@
       display: inline-block;
       width: 7px; height: 7px;
       border-radius: 50%;
-      background: #69f0ae;
+      background: var(--moss);
       margin-right: 5px;
       vertical-align: middle;
       animation: pulse 2s infinite;
@@ -128,13 +153,42 @@
       50%       { opacity: 0.4; }
     }
 
-    /* Rest of site */
-    .btn-scrap { background: #2e7d32; color: white; }
-    .btn-scrap:hover { background: #1b5e20; color: white; }
+    /* ── Rest of site ── */
+    h1, h2, h3, h4, .display-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .btn-scrap {
+      background: linear-gradient(135deg, var(--rust-light), var(--rust-dark));
+      color: #fff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(193, 87, 30, 0.35);
+    }
+    .btn-scrap:hover {
+      background: linear-gradient(135deg, var(--rust), var(--rust-dark));
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(193, 87, 30, 0.5);
+    }
+
     .price-badge {
-      background: #e8f5e9; color: #2e7d32;
+      background: var(--paper-dim);
+      color: var(--rust-dark);
+      border: 1px solid rgba(193, 87, 30, 0.25);
       border-radius: 8px; padding: 4px 12px; font-weight: 600;
     }
+
+    .alert-success {
+      background: rgba(92, 138, 85, 0.12);
+      border-color: rgba(92, 138, 85, 0.35);
+      color: #3d5e39;
+    }
+
+    footer {
+      background: var(--graphite-soft);
+      color: rgba(255,255,255,0.7) !important;
+      border-top: 3px solid var(--rust) !important;
+    }
+    footer i { color: var(--rust-light); }
 
   </style>
 </head>
@@ -143,14 +197,14 @@
 <!-- Pulsing status bar -->
 <div class="navbar-statusbar">
   <span class="dot"></span>
-  Open for pickups &nbsp;·&nbsp; Swabi, KPK &nbsp;·&nbsp; 📞 +92-323-9106011
+  Open for pickups &nbsp;·&nbsp; Swabi, KPK &nbsp;·&nbsp; <i class="bi bi-telephone-fill"></i> +92-323-9106011
 </div>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <div class="navbar-brand-icon">♻</div>
+      <div class="navbar-brand-icon"><i class="bi bi-recycle"></i></div>
       Saddam Scrap Dealer
     </a>
     <button class="navbar-toggler" type="button"
@@ -159,22 +213,22 @@
     </button>
     <div class="collapse navbar-collapse" id="nav">
     <ul class="navbar-nav ms-auto align-items-center gap-1 py-2 py-lg-0">
-  <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-  <li class="nav-item"><a class="nav-link" href="{% url 'prices' %}">Prices</a></li>
-  <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-  <li class="nav-item"><a class="nav-link" href="{% url '_about' %}">About</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="bi bi-house-door"></i> Home</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'prices' %}"><i class="bi bi-tag"></i> Prices</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}"><i class="bi bi-envelope"></i> Contact</a></li>
+  <li class="nav-item"><a class="nav-link" href="{% url '_about' %}"><i class="bi bi-info-circle"></i> About</a></li>
 
   {% if user.is_authenticated %}
-    <li class="nav-item"><a class="nav-link" href="{% url 'book_pickup' %}">Book Pickup</a></li>
-    <li class="nav-item"><span class="nav-link text-white-50">👤 {{ user.username }}</span></li>
-    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'book_pickup' %}"><i class="bi bi-truck"></i> Book Pickup</a></li>
+    <li class="nav-item"><span class="nav-link text-white-50"><i class="bi bi-person-circle"></i> {{ user.username }}</span></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
   {% else %}
-    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="bi bi-person-plus"></i> Register</a></li>
   {% endif %}
 
   <li class="nav-item">
-    <a class="nav-link nav-cta" href="{% url 'get_quote' %}">Get Quote ↗</a>
+    <a class="nav-link nav-cta" href="{% url 'get_quote' %}"><i class="bi bi-lightning-charge-fill"></i> Get Quote</a>
   </li>
 </ul>
     </div>
@@ -184,14 +238,14 @@
 <main class="container py-4">
   {% if messages %}
     {% for msg in messages %}
-      <div class="alert alert-success">{{ msg }}</div>
+      <div class="alert alert-success"><i class="bi bi-check-circle-fill me-1"></i>{{ msg }}</div>
     {% endfor %}
   {% endif %}
   {% block content %}{% endblock %}
 </main>
 
-<footer class="text-center py-3 mt-4 border-top text-muted small">
-  ♻ Saddam Scrap Dealer · Swabi &nbsp;·&nbsp; +92-323-9106011
+<footer class="text-center py-3 mt-4 small">
+  <i class="bi bi-recycle"></i> Saddam Scrap Dealer · Swabi &nbsp;·&nbsp; <i class="bi bi-telephone-fill"></i> +92-323-9106011
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

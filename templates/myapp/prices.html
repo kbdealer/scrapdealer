@@ -2,11 +2,59 @@
 {% block title %}Scrap Prices Today{% endblock %}
 {% block content %}
 
+<style>
+  .scrap-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .scrap-pagination a, .scrap-pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .scrap-pagination a {
+    color: var(--forge-black);
+    border: 1px solid rgba(0,0,0,0.1);
+    background: #fff;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .scrap-pagination a:hover {
+    background: rgba(240, 162, 2, 0.14);
+    border-color: var(--scrap-yellow);
+  }
+  .scrap-pagination .active {
+    background: var(--rust);
+    color: #fff;
+    border: 1px solid var(--rust);
+  }
+  .scrap-pagination .disabled {
+    color: rgba(0,0,0,0.3);
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #f5f5f5;
+  }
+  .scrap-pagination svg { width: 16px; height: 16px; }
+
+  @media (max-width: 576px) {
+    .scrap-pagination a, .scrap-pagination span { min-width: 36px; height: 36px; padding: 0 8px; font-size: 0.82rem; }
+  }
+</style>
+
 <h2 class="mb-1">Today's Scrap Prices</h2>
 <p class="text-muted mb-4">Prices updated regularly. Call us to confirm before bringing large loads.</p>
 
-<div class="row g-3">
-  {% for p in prices %}
+<div class="row g-3 justify-content-center">
+  {% for p in page_obj %}
   <div class="col-6 col-md-4 col-lg-3">
     <div class="card h-100 text-center p-3 shadow-sm">
       <div style="font-size:2rem; margin-bottom:8px">
@@ -30,6 +78,40 @@
   </div>
   {% endfor %}
 </div>
+
+{% if page_obj.paginator.num_pages > 1 %}
+<nav class="scrap-pagination" aria-label="Prices pagination">
+
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </a>
+  {% else %}
+    <span class="disabled">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </span>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if num == page_obj.number %}
+      <span class="active">{{ num }}</span>
+    {% else %}
+      <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+  {% else %}
+    <span class="disabled">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </span>
+  {% endif %}
+
+</nav>
+{% endif %}
 
 <div class="mt-4 p-4 bg-light rounded text-center">
   <h5>Not sure about the weight?</h5>
