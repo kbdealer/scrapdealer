@@ -1,24 +1,182 @@
 {% extends 'base.html' %}
 {% block title %}Contact & Location{% endblock %}
 {% block content %}
+
+<style>
+  .contact-header {
+    text-align: center;
+    padding: 8px 0 28px;
+  }
+  .contact-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: var(--graphite);
+    margin-bottom: 8px;
+  }
+  .contact-header p {
+    color: var(--steel);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Chamber of commerce trust badge ── */
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--paper-dim);
+    border: 1px solid rgba(193, 87, 30, 0.2);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 22px;
+  }
+  .trust-badge-icon {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rust-light), var(--rust-dark));
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(193, 87, 30, 0.35);
+  }
+  .trust-badge-text .title {
+    font-weight: 700;
+    color: var(--graphite);
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+  }
+  .trust-badge-text .sub {
+    font-size: 0.8rem;
+    color: var(--steel);
+  }
+
+  /* ── Info card ── */
+  .contact-info-card {
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 14px;
+    background: #fff;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+  }
+  .contact-info-card .biz-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--graphite);
+    margin-bottom: 4px;
+  }
+  .contact-info-card .biz-address {
+    color: var(--steel);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+  .contact-info-card .biz-address i { color: var(--rust); margin-top: 3px; }
+
+  .contact-actions .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+  }
+
+  /* ── Message form ── */
+  .contact-form-card {
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 14px;
+    background: #fff;
+    padding: 22px;
+  }
+  .contact-form-card h5 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: var(--graphite);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .contact-form-card h5 i {
+    color: #fff;
+    background: linear-gradient(135deg, var(--rust-light), var(--rust-dark));
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .contact-form-card .form-control {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+  .contact-form-card .form-control:focus {
+    border-color: var(--rust-light);
+    box-shadow: 0 0 0 3px rgba(193, 87, 30, 0.12);
+  }
+
+  /* ── Map ── */
+  #map {
+    height: 420px;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.07);
+  }
+
+  @media (max-width: 767px) {
+    #map { height: 300px; margin-top: 20px; }
+  }
+</style>
+
+<div class="contact-header">
+  <h2><i class="bi bi-geo-alt-fill" style="color: var(--rust);"></i> Find us</h2>
+  <p>Reach out by phone, WhatsApp, or the form below — or come see us at our yard in Swabi.</p>
+</div>
+
 <div class="row g-4">
   <div class="col-md-5">
-    <h2>Find us</h2>
-    <p><strong>{{ business_name }}</strong><br>{{ address }}</p>
-    <a href="tel:{{ phone }}" class="btn btn-scrap mb-2 d-block">Call {{ phone }}</a>
-    <a href="https://wa.me/{{ whatsapp }}" class="btn btn-success mb-3 d-block">WhatsApp Us</a>
 
-    <h5>Send a message</h5>
-    <form method="post">
-      {% csrf_token %}
-      <input name="name" class="form-control mb-2" placeholder="Your name" required>
-      <input name="phone" class="form-control mb-2" placeholder="Phone number" required>
-      <textarea name="message" class="form-control mb-2" rows="3" placeholder="Your message"></textarea>
-      <button class="btn btn-scrap w-100">Send</button>
-    </form>
+    <div class="trust-badge">
+      <div class="trust-badge-icon"><i class="bi bi-patch-check-fill"></i></div>
+      <div class="trust-badge-text">
+        <div class="title">Registered with Swabi Chamber of Commerce &amp; Industry</div>
+        <div class="sub">Associate member · A-967/SCCI-G26 · Valid until 31 Mar 2027</div>
+      </div>
+    </div>
+
+    <div class="contact-info-card">
+      <div class="biz-name">{{ business_name }}</div>
+      <p class="biz-address"><i class="bi bi-geo-alt"></i> {{ address }}</p>
+    </div>
+
+    <div class="contact-actions mb-4">
+      <a href="tel:{{ phone }}" class="btn btn-scrap mb-2 d-block">
+        <i class="bi bi-telephone-fill"></i> Call {{ phone }}
+      </a>
+      <a href="https://wa.me/{{ whatsapp }}" class="btn mb-2 d-block" style="background:#25D366; color:#fff;">
+        <i class="bi bi-whatsapp"></i> WhatsApp us
+      </a>
+    </div>
+
+    <div class="contact-form-card">
+      <h5><i class="bi bi-envelope-fill"></i> Send a message</h5>
+      <form method="post">
+        {% csrf_token %}
+        <input name="name" class="form-control mb-2" placeholder="Your name" required>
+        <input name="phone" class="form-control mb-2" placeholder="Phone number" required>
+        <textarea name="message" class="form-control mb-2" rows="3" placeholder="Your message"></textarea>
+        <button class="btn btn-scrap w-100">
+          <i class="bi bi-send-fill me-1"></i>Send
+        </button>
+      </form>
+    </div>
+
   </div>
+
   <div class="col-md-7">
-    <div id="map" style="height:420px;border-radius:12px;"></div>
+    <div id="map"></div>
   </div>
 </div>
 

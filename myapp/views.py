@@ -69,7 +69,7 @@ def logout_view(request):
 
 def prices(request):
     all_prices = ScrapPrice.objects.all()
-    paginator = Paginator(all_prices, 3)          # 3 items per page
+    paginator = Paginator(all_prices, 4)          # 3 items per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
  
